@@ -17,7 +17,7 @@ class ModelsTestCase(TestCase):
         cls.autor = Autor.objects.create(
             nombre="Ursula K. Le Guin",
             email="ursula@example.com",
-            bibliografia="Autora de ciencia ficción y fantasía.",
+            biografia="Autora de ciencia ficción y fantasía.",
         )
 
         cls.cat_sf = Categoria.objects.create(nombre="ciencia ficción")
