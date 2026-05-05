@@ -6,24 +6,7 @@ from .models import Autor, Libro
 
 
 def libros_por_categoria(nombre_categoria: str):
-    """
-    Devuelve un QuerySet de Libros que pertenecen a la categoría indicada.
-
-    Args:
-        nombre_categoria: nombre exacto de la categoría (ej: "fantasía")
-
-    Returns:
-        QuerySet[Libro]
-
-    Ejemplo de uso:
-        libros = libros_por_categoria("fantasía")
-        for libro in libros:
-            print(libro.titulo)
-    """
-    # TODO: implementar la consulta ORM
-    # Pista: usá filter con la relación M2M
-    #   Libro.objects.filter(categorias__nombre=nombre_categoria)
-    raise NotImplementedError
+    return Libro.objects.filter(categorias__nombre=nombre_categoria)
 
 
 def autores_con_mas_de_n_libros(n: int):
@@ -80,7 +63,7 @@ def top_n_libros_mas_prestados(n: int):
 
     Pista:
         Libro.objects.annotate(total_prestamos=Count("prestamo"))
-                     .order_by("-total_prestamos")[:n]
+                    .order_by("-total_prestamos")[:n]
     """
     # TODO: implementar con annotate + order_by + slicing
     raise NotImplementedError
