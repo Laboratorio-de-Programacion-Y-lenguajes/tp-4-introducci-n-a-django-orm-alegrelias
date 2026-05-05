@@ -1,3 +1,5 @@
+import models
+
 from __future__ import annotations
 
 from django.db.models import Count, Q
@@ -14,23 +16,9 @@ def autores_con_mas_de_n_libros(n: int):
 
 
 def libros_sin_disponibilidad():
-    """
-    Devuelve un QuerySet de Libros donde no hay copias disponibles.
-    (prestamos_activos == cantidad_total)
-
-    Returns:
-        QuerySet[Libro]
-
-    Restricción: resolver con ORM, SIN iterar libros en Python
-    (no usar disponibles() en un loop).
-
-    Pista: podés contar los préstamos activos por libro con annotate:
-        Libro.objects.annotate(
+    return Libro.objects.annotate(
             activos=Count("prestamo", filter=Q(prestamo__fecha_devolucion__isnull=True))
-        ).filter(activos=models.F("cantidad_total"))
-    """
-    # TODO: implementar con annotate + F expression + filter
-    raise NotImplementedError
+        ).filter(activos__gte=models.F("cantidad_total"))
 
 
 def top_n_libros_mas_prestados(n: int):
